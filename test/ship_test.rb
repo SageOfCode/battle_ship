@@ -11,7 +11,6 @@ class ShipTest < Minitest::Test
     assert_instance_of Ship, cruiser
   end
 
-
   def test_it_has_attributes
     cruiser = Ship.new("Cruiser", 3)
     assert_equal "Cruiser", cruiser.name
@@ -41,5 +40,8 @@ class ShipTest < Minitest::Test
     assert_equal 1, cruiser.health
   end
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> b8e9eba31fa3926d0c0da1a83a23c7771befc688
 end
