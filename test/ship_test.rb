@@ -40,4 +40,8 @@ class ShipTest < Minitest::Test
     assert_equal 1, cruiser.health
   end
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> b8e9eba31fa3926d0c0da1a83a23c7771befc688
 end

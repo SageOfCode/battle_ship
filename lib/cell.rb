@@ -1,11 +1,17 @@
 class Cell
   attr_reader :coordinate, :ship
 
+<<<<<<< HEAD
   def initialize(coordinate, ship = nil, fired_at = false, render = ".")
     @coordinate = coordinate
     @ship = ship
     @fired_at = fired_at
     @render = render
+=======
+  def initialize(coordinate, ship = nil)
+    @coordinate = coordinate
+    @ship = ship
+>>>>>>> b8e9eba31fa3926d0c0da1a83a23c7771befc688
   end
 
   def empty?
@@ -13,6 +19,7 @@ class Cell
   end
 
   def place_ship(ship)
+<<<<<<< HEAD
     @ship = ship
   end
 
@@ -39,5 +46,8 @@ class Cell
       @render = "H"
       end
 
+=======
+    @ship = ship 
+>>>>>>> b8e9eba31fa3926d0c0da1a83a23c7771befc688
   end
 end

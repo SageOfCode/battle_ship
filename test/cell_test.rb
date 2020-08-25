@@ -26,6 +26,7 @@ class CellTest < Minitest::Test
     cell.place_ship(cruiser)
     assert_equal cruiser, cell.ship
   end
+<<<<<<< HEAD
 
   def test_it_can_be_fired_upon
     cell = Cell.new("B4")
@@ -54,4 +55,6 @@ class CellTest < Minitest::Test
     cruiser.hit
     assert_equal "X", cell_2.render
   end
+=======
+>>>>>>> b8e9eba31fa3926d0c0da1a83a23c7771befc688
 end
