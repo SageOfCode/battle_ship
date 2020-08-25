@@ -24,9 +24,11 @@ class Cell
     @fired_at = true
   end
 
-  def render(*)
+  def render(apple = false)
     if empty? == false && @ship.sunk? == true
       @render = "X"
+    elsif apple == true && empty? == false && fired_upon? == false
+      @render = "S"
     elsif empty? == true && fired_upon? == false
       @render
     elsif empty? == false && fired_upon? == false
@@ -35,8 +37,7 @@ class Cell
       @render = "M"
     elsif empty? == false && fired_upon? == true
       @render = "H"
-
-    end
+      end
 
   end
 end
