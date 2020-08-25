@@ -28,4 +28,8 @@ attr_reader :cells
   def valid_coordinate?(coordinate)
     @cells.keys.include?(coordinate)
   end
+
+  def valid_placement?(ship, coordinates)
+    ship.length == coordinates.count
+  end
 end
