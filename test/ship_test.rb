@@ -2,9 +2,7 @@ require './lib/ship'
 require 'Minitest/autorun'
 require 'Minitest/pride'
 
-
 class ShipTest < Minitest::Test
-
 
   def test_that_it_exists
     cruiser = Ship.new("Cruiser", 3)
@@ -39,9 +37,4 @@ class ShipTest < Minitest::Test
     cruiser.hit
     assert_equal 1, cruiser.health
   end
-
-<<<<<<< HEAD
-=======
-
->>>>>>> b8e9eba31fa3926d0c0da1a83a23c7771befc688
 end
