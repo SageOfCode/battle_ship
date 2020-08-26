@@ -35,4 +35,30 @@ class BoardTest < Minitest::Test
     assert_equal true, board.valid_placement?(cruiser, ["B1", "B2", "B3"])
     assert_equal true, board.valid_placement?(submarine, ["C1", "D1"])
   end
+
+  def test_can_split_x_and_y_coordinates
+    board = Board.new
+    assert_equal [["A", "1"], ["A", "2"]], board.split_coordinates(["A1", "A2"])
+    assert_equal [["B", "1"], ["B", "2"], ["B", "3"]], board.split_coordinates(["B1", "B2", "B3"])
+  end
+
+  def test_cannot_be_diagonal
+    board = Board.new
+    first_placement = ["A1", "A2", "A3"]
+    second_placement = ["A1", "B2", "C3"]
+    assert_equal true, board.valid_row?(first_placement)
+    assert_equal false, board.valid_row?(second_placement)
+  end
+
+  def test_coordinates_are_consecutive
+    skip
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    submarine = Ship.new("Submarine", 2)
+
+    assert_equal false, board.valid_placement?(cruiser, ["A1", "A2", "A4"])
+    assert_equal false, board.valid_placement?(submarine, ["A1", "C1"])
+    assert_equal false, board.valid_placement?(cruiser, ["A3", "A2", "A1"])
+    assert_equal false, board.valid_placement?(submarine, ["C1", "B1"])
+  end
 end

@@ -29,7 +29,35 @@ attr_reader :cells
     @cells.keys.include?(coordinate)
   end
 
+  def split_coordinates(coordinates)
+    coordinates.map do |coordinate|
+      coordinate.split("")
+    end
+  end
+
+  def valid_row?(coordinates)
+    letters = split_coordinates(coordinates)
+    rows = letters.map do |letter|
+      letter[0]
+    end
+    ord_values = rows.map do |row|
+      row.ord
+    end
+    if rows.uniq.size == 1
+      true
+    elsif 
+      ord_values.each_with_index do |value, index|
+        # require "pry"; binding.pry
+      value - ord_values[index + 1] == -1
+      end
+    else
+      false
+    end
+  end
+
   def valid_placement?(ship, coordinates)
     ship.length == coordinates.count
+    #think about making boolean returns method1 && method2 && method3
+    # X axis increments by 1 and Y axis increments by 1
   end
 end
