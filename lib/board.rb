@@ -36,24 +36,49 @@ attr_reader :cells
   end
 
   def valid_row?(coordinates)
-    letters = split_coordinates(coordinates)
-    rows = letters.map do |letter|
+    split_coordinate = split_coordinates(coordinates)
+    rows = split_coordinate.map do |letter|
       letter[0]
     end
     ord_values = rows.map do |row|
       row.ord
     end
-    if rows.uniq.size == 1
+    if ord_values.uniq.size == 1
       true
-    elsif 
-      ord_values.each_with_index do |value, index|
-        # require "pry"; binding.pry
-      value - ord_values[index + 1] == -1
-      end
     else
       false
     end
   end
+
+  def valid_column?(coordinates)
+    split_coordinate = split_coordinates(coordinates)
+    columns = split_coordinate.map do |number|
+      number[1]
+    end
+    ord_values = columns.map do |column|
+      column.ord
+    end
+    if ord_values.uniq.size == 1
+      true
+    else
+      false
+    end
+  end
+  # if rows.uniq.size == 1 ||
+  #   true
+  # elsif rows.uniq.size > 1
+  #   if coordinates.count == 2
+  #     ord_values.each_cons(2).all? {|first, second| second == first + 1 }
+  #   each cons with any? if it returns -1
+  #   ord_values.any?.with_index do |value, index|
+  #     return true unless ord_values[index + 1]
+  #     value - ord_values[index + 1] == -1
+  #   true
+  #   end
+  # else
+  #   false
+  # end
+
 
   def valid_placement?(ship, coordinates)
     ship.length == coordinates.count

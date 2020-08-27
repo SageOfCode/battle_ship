@@ -42,12 +42,36 @@ class BoardTest < Minitest::Test
     assert_equal [["B", "1"], ["B", "2"], ["B", "3"]], board.split_coordinates(["B1", "B2", "B3"])
   end
 
+  def test_knows_valid_rows
+    board = Board.new
+    valid_placement = ["A1", "A2", "A3"]
+    valid_placement_1 = ["A1", "B1", "C1"]
+    invalid_placement = ["A1", "C1", "B1"]
+
+    assert_equal true, board.valid_row?(valid_placement)
+    assert_equal false, board.valid_row?(valid_placement_1)
+    assert_equal false, board.valid_row?(invalid_placement)
+  end
+
+  def test_knows_valid_columns
+    board = Board.new
+    valid_placement = ["A1", "A2", "A3"]
+    valid_placement_1 = ["A1", "B1", "C1"]
+    invalid_placement = ["A1", "C1", "B1"]
+
+    assert_equal false, board.valid_column?(valid_placement)
+    assert_equal true, board.valid_column?(valid_placement_1)
+    assert_equal true, board.valid_column?(invalid_placement)
+  end
   def test_cannot_be_diagonal
+    skip
     board = Board.new
     first_placement = ["A1", "A2", "A3"]
     second_placement = ["A1", "B2", "C3"]
     assert_equal true, board.valid_row?(first_placement)
     assert_equal false, board.valid_row?(second_placement)
+    assert_equal true, board.valid_column?(first_placement)
+    assert_equal false, board.valid_column?(second_placement)
   end
 
   def test_coordinates_are_consecutive
