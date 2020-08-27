@@ -44,25 +44,26 @@ class BoardTest < Minitest::Test
 
   def test_knows_valid_rows
     board = Board.new
-    valid_placement = ["A1", "A2", "A3"]
-    valid_placement_1 = ["A1", "B1", "C1"]
+    valid_placement_1 = ["A1", "A2", "A3"]
+    valid_placement_2 = ["A1", "B1", "C1"]
     invalid_placement = ["A1", "C1", "B1"]
 
-    assert_equal true, board.valid_row?(valid_placement)
-    assert_equal false, board.valid_row?(valid_placement_1)
+    assert_equal true, board.valid_row?(valid_placement_1)
+    assert_equal false, board.valid_row?(valid_placement_2)
     assert_equal false, board.valid_row?(invalid_placement)
   end
 
   def test_knows_valid_columns
     board = Board.new
-    valid_placement = ["A1", "A2", "A3"]
-    valid_placement_1 = ["A1", "B1", "C1"]
+    valid_placement_1 = ["A1", "A2", "A3"]
+    valid_placement_2 = ["A1", "B1", "C1"]
     invalid_placement = ["A1", "C1", "B1"]
 
-    assert_equal false, board.valid_column?(valid_placement)
-    assert_equal true, board.valid_column?(valid_placement_1)
+    assert_equal false, board.valid_column?(valid_placement_1)
+    assert_equal true, board.valid_column?(valid_placement_2)
     assert_equal true, board.valid_column?(invalid_placement)
   end
+
   def test_cannot_be_diagonal
     skip
     board = Board.new
@@ -74,15 +75,17 @@ class BoardTest < Minitest::Test
     assert_equal false, board.valid_column?(second_placement)
   end
 
-  def test_coordinates_are_consecutive
-    skip
+  def test_coordinates_are_sequential
     board = Board.new
-    cruiser = Ship.new("Cruiser", 3)
-    submarine = Ship.new("Submarine", 2)
 
-    assert_equal false, board.valid_placement?(cruiser, ["A1", "A2", "A4"])
-    assert_equal false, board.valid_placement?(submarine, ["A1", "C1"])
-    assert_equal false, board.valid_placement?(cruiser, ["A3", "A2", "A1"])
-    assert_equal false, board.valid_placement?(submarine, ["C1", "B1"])
+    valid_row_placement_1   = ["A1", "A2", "A3"]
+    invalid_row_placement_1 = ["D3", "C2", "B1"]
+    valid_column_placement_1   = ["A1", "B1", "C1"]
+    invalid_column_placement_1 = ["D3", "D2", "D1"]
+
+    assert_equal true, board.sequential_row_coords?(valid_row_placement_1)
+    assert_equal false, board.sequential_row_coords?(invalid_row_placement_1)
+    assert_equal true, board.sequential_column_coords?(valid_column_placement_1)
+    assert_equal false, board.sequential_column_coords?(invalid_column_placement_1)
   end
 end

@@ -64,21 +64,34 @@ attr_reader :cells
       false
     end
   end
-  # if rows.uniq.size == 1 ||
-  #   true
-  # elsif rows.uniq.size > 1
-  #   if coordinates.count == 2
-  #     ord_values.each_cons(2).all? {|first, second| second == first + 1 }
-  #   each cons with any? if it returns -1
-  #   ord_values.any?.with_index do |value, index|
-  #     return true unless ord_values[index + 1]
-  #     value - ord_values[index + 1] == -1
-  #   true
-  #   end
-  # else
-  #   false
-  # end
 
+  def sequential_row_coords?(coordinates)
+    split_coordinate = split_coordinates(coordinates)
+    rows = split_coordinate.map do |number|
+      number[1]
+    end
+    if coordinates.length == 2
+      rows.join == ("12" || "23" || "34")
+    elsif coordinates.length == 3
+      rows.join == ("123" || "234")
+    else
+      p "oops"
+    end
+  end
+
+  def sequential_column_coords?(coordinates)
+    split_coordinate = split_coordinates(coordinates)
+    columns = split_coordinate.map do |number|
+      number[0]
+    end
+    if coordinates.length == 2
+      columns.join == ("AB" || "BC" || "CD")
+    elsif coordinates.length == 3
+      columns.join == ("ABC" || "BCD")
+    else
+      p "oops"
+    end
+  end
 
   def valid_placement?(ship, coordinates)
     ship.length == coordinates.count
