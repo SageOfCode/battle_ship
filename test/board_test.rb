@@ -26,16 +26,6 @@ class BoardTest < Minitest::Test
     assert_equal false, board.valid_coordinate?("Z9")
   end
 
-  def test_knowns_valid_placement
-    board = Board.new
-    cruiser = Ship.new("Cruiser", 3)
-    submarine = Ship.new("Submarine", 2)
-    assert_equal false, board.valid_placement?(cruiser, ["A1", "A2"])
-    assert_equal false, board.valid_placement?(submarine, ["A2", "A3", "A4"])
-    assert_equal true, board.valid_placement?(cruiser, ["B1", "B2", "B3"])
-    assert_equal true, board.valid_placement?(submarine, ["C1", "D1"])
-  end
-
   def test_can_split_x_and_y_coordinates
     board = Board.new
     assert_equal [["A", "1"], ["A", "2"]], board.split_coordinates(["A1", "A2"])
@@ -64,28 +54,41 @@ class BoardTest < Minitest::Test
     assert_equal true, board.valid_column?(invalid_placement)
   end
 
-  def test_cannot_be_diagonal
-    skip
-    board = Board.new
-    first_placement = ["A1", "A2", "A3"]
-    second_placement = ["A1", "B2", "C3"]
-    assert_equal true, board.valid_row?(first_placement)
-    assert_equal false, board.valid_row?(second_placement)
-    assert_equal true, board.valid_column?(first_placement)
-    assert_equal false, board.valid_column?(second_placement)
-  end
-
   def test_coordinates_are_sequential
     board = Board.new
-
     valid_row_placement_1   = ["A1", "A2", "A3"]
     invalid_row_placement_1 = ["D3", "C2", "B1"]
     valid_column_placement_1   = ["A1", "B1", "C1"]
     invalid_column_placement_1 = ["D3", "D2", "D1"]
+    yet_another_valid = ["B1", "C1", "D1"]
+    valid_1 = ["A1", "B1"]
+    valid_2 = ["B1", "C1"]
+    valid_3 = ["C1", "D1"]
 
     assert_equal true, board.sequential_row_coords?(valid_row_placement_1)
     assert_equal false, board.sequential_row_coords?(invalid_row_placement_1)
     assert_equal true, board.sequential_column_coords?(valid_column_placement_1)
     assert_equal false, board.sequential_column_coords?(invalid_column_placement_1)
+    assert_equal true, board.sequential_column_coords?(yet_another_valid)
+    assert_equal true, board.sequential_column_coords?(valid_1)
+    assert_equal true, board.sequential_column_coords?(valid_2)
+    assert_equal true, board.sequential_column_coords?(valid_3)
+  end
+
+  def test_knows_valid_placement
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    submarine = Ship.new("Submarine", 2)
+
+    assert_equal false, board.valid_placement?(cruiser, ["A1", "A2"])
+    assert_equal false, board.valid_placement?(submarine, ["A2", "A3", "A4"])
+    assert_equal false, board.valid_placement?(cruiser, ["A1", "A2", "A4"])
+    assert_equal false, board.valid_placement?(submarine, ["A1", "C1"])
+    assert_equal false, board.valid_placement?(cruiser, ["A3", "A2", "A1"])
+    assert_equal false, board.valid_placement?(submarine, ["C1", "B1"])
+    assert_equal false, board.valid_placement?(cruiser, ["A1", "B2", "C3"])
+    assert_equal false, board.valid_placement?(submarine, ["C2", "D3"])
+    assert_equal true, board.valid_placement?(submarine, ["A1", "A2"])
+    assert_equal true, board.valid_placement?(cruiser, ["B1", "C1", "D1"])
   end
 end

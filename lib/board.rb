@@ -85,17 +85,17 @@ attr_reader :cells
       number[0]
     end
     if coordinates.length == 2
-      columns.join == ("AB" || "BC" || "CD")
+      (columns.join == ("AB")) || (columns.join == ("BC")) || (columns.join == ("CD"))
     elsif coordinates.length == 3
-      columns.join == ("ABC" || "BCD")
+      (columns.join == ("ABC"))|| (columns.join == ("BCD"))
     else
       p "oops"
     end
   end
 
   def valid_placement?(ship, coordinates)
-    ship.length == coordinates.count
-    #think about making boolean returns method1 && method2 && method3
-    # X axis increments by 1 and Y axis increments by 1
+    ship.length == coordinates.count &&
+    (valid_row?(coordinates) && sequential_row_coords?(coordinates)) ||
+    (valid_column?(coordinates) && sequential_column_coords?(coordinates))
   end
 end
