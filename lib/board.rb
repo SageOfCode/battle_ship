@@ -87,15 +87,29 @@ attr_reader :cells
     if coordinates.length == 2
       (columns.join == ("AB")) || (columns.join == ("BC")) || (columns.join == ("CD"))
     elsif coordinates.length == 3
-      (columns.join == ("ABC"))|| (columns.join == ("BCD"))
+      (columns.join == ("ABC")) || (columns.join == ("BCD"))
     else
       p "oops"
     end
   end
 
   def valid_placement?(ship, coordinates)
-    ship.length == coordinates.count &&
-    (valid_row?(coordinates) && sequential_row_coords?(coordinates)) ||
-    (valid_column?(coordinates) && sequential_column_coords?(coordinates))
+    coordinates.all? do |coordinate|
+      if @cells[coordinate].empty?
+        ship.length == coordinates.count &&
+        (valid_row?(coordinates) && sequential_row_coords?(coordinates)) ||
+        (valid_column?(coordinates) && sequential_column_coords?(coordinates))
+      end
+    end
+  end
+
+  def place(ship, coordinates)
+    if valid_placement?(ship, coordinates)
+      coordinates.each do |coordinate|
+          @cells[coordinate].place_ship(ship)
+      end
+    else
+      "Nope!"
+    end
   end
 end
