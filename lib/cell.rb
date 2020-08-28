@@ -24,10 +24,10 @@ class Cell
     @fired_at = true
   end
 
-  def render(apple = false)
+  def render(show_board = false)
     if empty? == false && @ship.sunk? == true
       @render = "X"
-    elsif apple == true && empty? == false && fired_upon? == false
+    elsif show_board == true && empty? == false && fired_upon? == false
       @render = "S"
     elsif empty? == true && fired_upon? == false
       @render
