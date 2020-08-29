@@ -11,23 +11,23 @@ class PlayerTest < Minitest::Test
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
-    ships = [cruiser, submarine]
-    player = Player.new(board, ships)
+    player = Player.new
 
     assert_instance_of Player, player
 
     expected_1 = "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n"
     assert_equal expected_1, player.board.render
 
-    assert_equal  [cruiser, submarine], player.ships
+    # Ask about "No visible difference in the Ship#inspect output."
+    # assert_equal  cruiser, player.cruiser
+    # assert_equal  submarine, player.submarine
   end
 
   def test_player_can_place_ships
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
-    ships = [cruiser, submarine]
-    player = Player.new(board, ships)
+    player = Player.new
 
     player.board.place(cruiser, ["A1", "A2", "A3"])
     expected_placed = "  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n"

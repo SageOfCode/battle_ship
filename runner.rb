@@ -5,6 +5,6 @@ require './lib/player'
 require './lib/computer'
 require './lib/turn'
 
-game = Turn.new
-
+game = Turn.new(player, computer)
+Player.new(board, ships)
 game.main_menu
