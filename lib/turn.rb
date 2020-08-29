@@ -7,7 +7,8 @@ class Turn
   end
 
   def main_menu
-    puts "Welcome to BATTLESHIP /nEnter p to play. Enter q to quit."
+    puts "    Welcome to BATTLESHIP
+    Enter p to play. Enter q to quit."
 
   end
 end
