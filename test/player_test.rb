@@ -22,6 +22,25 @@ class PlayerTest < Minitest::Test
     assert_equal  [cruiser, submarine], player.ships
   end
 
+  def test_player_can_place_ships
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    submarine = Ship.new("Submarine", 2)
+    ships = [cruiser, submarine]
+    player = Player.new(board, ships)
 
+    player.board.place(cruiser, ["A1", "A2", "A3"])
+    expected_placed = "  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n"
+    actual_placed = player.board.render(true)
+
+    assert_equal expected_placed, actual_placed
+
+    player.board.place(submarine, ["B1", "B2"])
+    expected_placed_2 = "  1 2 3 4 \nA S S S . \nB S S . . \nC . . . . \nD . . . . \n"
+    actual_placed_2 = player.board.render(true)
+
+    assert_equal expected_placed_2, actual_placed_2
+
+  end
 
 end
