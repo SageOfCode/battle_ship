@@ -35,12 +35,14 @@ class BoardTest < Minitest::Test
   def test_knows_valid_rows
     board = Board.new
     valid_placement_1 = ["A1", "A2", "A3"]
-    valid_placement_2 = ["A1", "B1", "C1"]
-    invalid_placement = ["A1", "C1", "B1"]
+    valid_placement_2 = ["A2", "A3", "A4"]
+    invalid_placement_1 = ["A1", "B1", "C1"]
+    invalid_placement_2 = ["A1", "C1", "B1"]
 
     assert_equal true, board.valid_row?(valid_placement_1)
-    assert_equal false, board.valid_row?(valid_placement_2)
-    assert_equal false, board.valid_row?(invalid_placement)
+    assert_equal true, board.valid_row?(valid_placement_2)
+    assert_equal false, board.valid_row?(invalid_placement_1)
+    assert_equal false, board.valid_row?(invalid_placement_2)
   end
 
   def test_knows_valid_columns
@@ -57,6 +59,9 @@ class BoardTest < Minitest::Test
   def test_coordinates_are_sequential
     board = Board.new
     valid_row_placement_1   = ["A1", "A2", "A3"]
+
+    valid_row_placement_2 = ["A2", "A3", "A4"]
+
     invalid_row_placement_1 = ["D3", "C2", "B1"]
     valid_column_placement_1   = ["A1", "B1", "C1"]
     invalid_column_placement_1 = ["D3", "D2", "D1"]
@@ -66,6 +71,9 @@ class BoardTest < Minitest::Test
     valid_3 = ["C1", "D1"]
 
     assert_equal true, board.sequential_row_coords?(valid_row_placement_1)
+
+    assert_equal true, board.sequential_row_coords?(valid_row_placement_2)
+
     assert_equal false, board.sequential_row_coords?(invalid_row_placement_1)
     assert_equal true, board.sequential_column_coords?(valid_column_placement_1)
     assert_equal false, board.sequential_column_coords?(invalid_column_placement_1)

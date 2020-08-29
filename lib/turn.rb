@@ -31,7 +31,26 @@ B . . . .
 C . . . .
 D . . . .
 Enter the squares for the Cruiser (3 spaces):"
-user_coords = gets.chomp.upcase
+
+    user_coords = gets.chomp.upcase.split
+
+      # puts user_coords
+
+    if player.board.valid_placement?(player.cruiser, user_coords)
+
+      player.board.place(player.cruiser, user_coords)
+
+      puts player.board.render(true)
+
+    elsif player.board.valid_placement?(player.cruiser, user_coords) == false
+
+      p "Try again"
+      explanation
+
+    else
+      p "Error oops"
+
+    end
 # Check later on how to grab ">" for user input.
 
 

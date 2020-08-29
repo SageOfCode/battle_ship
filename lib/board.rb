@@ -71,9 +71,9 @@ attr_reader :cells
       number[1]
     end
     if coordinates.length == 2
-      rows.join == ("12" || "23" || "34")
+      (rows.join == ("12")) || (rows.join == ("23")) || (rows.join == ("34"))
     elsif coordinates.length == 3
-      rows.join == ("123" || "234")
+      (rows.join == ("123")) || (rows.join == ("234"))
     else
       p "oops"
     end
