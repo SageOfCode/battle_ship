@@ -32,28 +32,45 @@ C . . . .
 D . . . .
 Enter the squares for the Cruiser (3 spaces):"
 
-    user_coords = gets.chomp.upcase.split
+    place_cruiser
 
-      # puts user_coords
+  end
 
-    if player.board.valid_placement?(player.cruiser, user_coords)
-
-      player.board.place(player.cruiser, user_coords)
-
+  def place_cruiser
+    cruiser_coords = gets.chomp.upcase.split
+    if player.board.valid_placement?(player.cruiser, cruiser_coords)
+      player.board.place(player.cruiser, cruiser_coords)
+      puts "Here is your board placement:"
       puts player.board.render(true)
-
-    elsif player.board.valid_placement?(player.cruiser, user_coords) == false
-
+      puts "Enter the squares for the Submarine (2 spaces):"
+      place_submarine
+    elsif player.board.valid_placement?(player.cruiser, cruiser_coords) == false
       p "Try again"
       explanation
-
     else
       p "Error oops"
-
+      explanation
     end
-# Check later on how to grab ">" for user input.
+  end
 
+  def place_submarine
+      submarine_coords = gets.chomp.upcase.split
+      if player.board.valid_placement?(player.submarine, submarine_coords)
+        player.board.place(player.submarine, submarine_coords)
+        puts "Here is your board placement:"
+        puts player.board.render(true)
+        next_step
+      elsif player.board.valid_placement?(player.submarine, submarine_coords) == false
+        p "Try again"
+        explanation
+      else
+        p "Error oops"
+        explanation
+      end
+  end
 
+  def next_step
+    puts "We made it!"
   end
 
 end
