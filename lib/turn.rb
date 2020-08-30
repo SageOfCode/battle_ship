@@ -59,18 +59,40 @@ Enter the squares for the Cruiser (3 spaces):"
         player.board.place(player.submarine, submarine_coords)
         puts "Here is your board placement:"
         puts player.board.render(true)
-        next_step
+        computer_place_cruiser
       elsif player.board.valid_placement?(player.submarine, submarine_coords) == false
         p "Try again"
-        explanation
+        place_submarine
       else
         p "Error oops"
-        explanation
+        place_submarine
       end
   end
 
-  def next_step
-    puts "We made it!"
+  def computer_place_cruiser
+    comp_cruiser_coords = computer.board.cells.keys.sample(3)
+    if computer.board.valid_placement?(computer.cruiser, comp_cruiser_coords)
+      computer.board.place(computer.cruiser, comp_cruiser_coords)
+      computer_place_submarine
+    else
+      computer_place_cruiser
+    end
   end
+
+  def computer_place_submarine
+    comp_submarine_coords = computer.board.cells.keys.sample(2)
+    if computer.board.valid_placement?(computer.submarine, comp_submarine_coords)
+      computer.board.place(computer.submarine, comp_submarine_coords)
+      puts computer.board.render(true)
+      next_step
+    else
+      computer_place_submarine
+    end
+  end
+
+    def next_step
+      p "We made it!"
+
+    end
 
 end
