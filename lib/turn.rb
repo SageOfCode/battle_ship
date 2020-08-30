@@ -84,15 +84,43 @@ Enter the squares for the Cruiser (3 spaces):"
     if computer.board.valid_placement?(computer.submarine, comp_submarine_coords)
       computer.board.place(computer.submarine, comp_submarine_coords)
       puts computer.board.render(true)
-      next_step
+      player_fire
     else
       computer_place_submarine
     end
   end
 
-    def next_step
-      p "We made it!"
-
+    def player_fire
+      # require "pry"; binding.pry
+      puts "Pick a coordinate to attack"
+      player_fire_coords = gets.chomp.upcase
+      if computer.board.cells.keys.include?(player_fire_coords) &&
+        !computer.board.cells[player_fire_coords].fired_upon?
+        computer.board.cells[player_fire_coords].fire_upon
+        computer.board.cells[player_fire_coords].ship.hit
+        puts computer.board.render(true)
+        puts player.board.render(true)
+        computer_fire
+      else
+        p "Invalid shot, please choose a valid coordinate:"
+        player_fire
+      end
     end
 
+    def computer_fire
+      comp_shot = computer.board.cells.keys.sample
+      if player.board.cells.keys.include?(comp_shot) &&
+        !player.board.cells[comp_shot].fired_upon?
+        player.board.cells[comp_shot].fire_upon
+        player.board.cells[comp_shot].ship.hit
+        puts player.board.render(true)
+        puts computer.board.render(true)
+        next_step
+      end
+    end
+
+    def next_step
+      "It does the thing."
+
+    end
 end
