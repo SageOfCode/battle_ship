@@ -6,5 +6,4 @@ class Computer
     @cruiser = Ship.new("Cruiser", 3)
     @submarine = Ship.new("Submarine", 2)
   end
-
 end
