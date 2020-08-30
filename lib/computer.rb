@@ -7,7 +7,7 @@ class Computer
     @submarine = Ship.new("Submarine", 2)
   end
 
-  def computer_has_lost?
+  def has_lost?
     @cruiser.sunk? && @submarine.sunk?
   end
 end

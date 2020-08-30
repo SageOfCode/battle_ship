@@ -7,7 +7,7 @@ class Player
     @submarine = Ship.new("Submarine", 2)
   end
 
-  def player_has_lost?
+  def has_lost?
     @cruiser.sunk? && @submarine.sunk?
   end
 end

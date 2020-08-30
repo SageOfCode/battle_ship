@@ -84,14 +84,19 @@ Enter the squares for the Cruiser (3 spaces):"
     if computer.board.valid_placement?(computer.submarine, comp_submarine_coords)
       computer.board.place(computer.submarine, comp_submarine_coords)
       puts computer.board.render(true)
-      player_fire
+      turn_logic
     else
       computer_place_submarine
     end
   end
 
   def turn_logic
-    
+    until player.has_lost? || computer.has_lost?
+      puts "next turn"
+      player_fire
+    end
+    puts "test win logic"
+    win_lose_statement
   end
 
     def player_fire
@@ -104,14 +109,20 @@ Enter the squares for the Cruiser (3 spaces):"
         computer.board.cells[player_fire_coords].fire_upon
         puts computer.board.render(true)
         puts player.board.render(true)
-        computer_fire
+          if !computer.has_lost?
+            computer_fire
+          else turn_logic
+          end
       elsif computer.board.cells.keys.include?(player_fire_coords) &&
         !computer.board.cells[player_fire_coords].fired_upon?
         computer.board.cells[player_fire_coords].fire_upon
         computer.board.cells[player_fire_coords].ship.hit
         puts computer.board.render(true)
         puts player.board.render(true)
-        computer_fire
+          if !computer.has_lost?
+            computer_fire
+          else turn_logic
+          end
       else
         p "Invalid shot, please choose a valid coordinate:"
         player_fire
@@ -137,6 +148,16 @@ Enter the squares for the Cruiser (3 spaces):"
         turn_logic
       else
         computer_fire
+      end
+    end
+
+    def win_lose_statement
+      if !player.has_lost?
+        p "You won!"
+      elsif !computer.has_lost?
+        p "better luck next time"
+      else
+        p "the game is broken :("
       end
     end
 
