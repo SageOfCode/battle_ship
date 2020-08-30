@@ -22,4 +22,27 @@ class ComputerTest < Minitest::Test
     # assert_equal  cruiser, computer.cruiser
     # assert_equal  submarine, computer.submarine
   end
+
+  def test_it_can_lose
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    submarine = Ship.new("Submarine", 2)
+    computer = Computer.new
+
+    expected_1 = false
+    actual_1 = computer.computer_has_lost?
+
+    assert_equal expected_1, actual_1
+
+    computer.cruiser.hit
+    computer.cruiser.hit
+    computer.cruiser.hit
+    computer.submarine.hit
+    computer.submarine.hit
+
+    expected_2 = true
+    actual_2 = computer.computer_has_lost?
+    
+    assert_equal expected_2, actual_2
+  end
 end

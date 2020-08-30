@@ -90,11 +90,22 @@ Enter the squares for the Cruiser (3 spaces):"
     end
   end
 
+  def turn_logic
+    
+  end
+
     def player_fire
       # require "pry"; binding.pry
       puts "Pick a coordinate to attack"
       player_fire_coords = gets.chomp.upcase
       if computer.board.cells.keys.include?(player_fire_coords) &&
+        !computer.board.cells[player_fire_coords].fired_upon? &&
+        computer.board.cells[player_fire_coords].ship == nil
+        computer.board.cells[player_fire_coords].fire_upon
+        puts computer.board.render(true)
+        puts player.board.render(true)
+        computer_fire
+      elsif computer.board.cells.keys.include?(player_fire_coords) &&
         !computer.board.cells[player_fire_coords].fired_upon?
         computer.board.cells[player_fire_coords].fire_upon
         computer.board.cells[player_fire_coords].ship.hit
@@ -108,19 +119,25 @@ Enter the squares for the Cruiser (3 spaces):"
     end
 
     def computer_fire
-      comp_shot = computer.board.cells.keys.sample
-      if player.board.cells.keys.include?(comp_shot) &&
-        !player.board.cells[comp_shot].fired_upon?
-        player.board.cells[comp_shot].fire_upon
-        player.board.cells[comp_shot].ship.hit
+      # puts "Pick a coordinate to attack"
+      computer_fire_coords = computer.board.cells.keys.sample
+      if player.board.cells.keys.include?(computer_fire_coords) &&
+        !player.board.cells[computer_fire_coords].fired_upon? &&
+        player.board.cells[computer_fire_coords].ship == nil
+        player.board.cells[computer_fire_coords].fire_upon
+        puts computer.board.render(true)
+        puts player.board.render(true)
+        turn_logic
+      elsif player.board.cells.keys.include?(computer_fire_coords) &&
+        !player.board.cells[computer_fire_coords].fired_upon?
+        player.board.cells[computer_fire_coords].fire_upon
+        player.board.cells[computer_fire_coords].ship.hit
         puts player.board.render(true)
         puts computer.board.render(true)
-        next_step
+        turn_logic
+      else
+        computer_fire
       end
     end
 
-    def next_step
-      "It does the thing."
-
-    end
 end
