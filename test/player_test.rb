@@ -43,4 +43,27 @@ class PlayerTest < Minitest::Test
 
   end
 
+  def test_it_can_lose
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    submarine = Ship.new("Submarine", 2)
+    player = Player.new
+
+    expected_1 = false
+    actual_1 = player.player_has_lost?
+
+    assert_equal expected_1, actual_1
+
+    player.cruiser.hit
+    player.cruiser.hit
+    player.cruiser.hit
+    player.submarine.hit
+    player.submarine.hit
+
+    expected_2 = true
+    actual_2 = player.player_has_lost?
+
+    assert_equal expected_2, actual_2
+  end
+
 end

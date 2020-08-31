@@ -6,4 +6,8 @@ class Computer
     @cruiser = Ship.new("Cruiser", 3)
     @submarine = Ship.new("Submarine", 2)
   end
+
+  def has_lost?
+    @cruiser.sunk? && @submarine.sunk?
+  end
 end
