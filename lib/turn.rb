@@ -36,6 +36,13 @@ Enter the squares for the Cruiser (3 spaces):"
 
   end
 
+#   def explanation_2
+#     player.board.render(true)
+#     puts "It looks like you missed a coordinate. Try again.
+# Enter the squares for the Submarine (2 spaces):"
+#     place_submarine
+#   end
+
   def place_cruiser
     cruiser_coords = gets.chomp.upcase.split
     if player.board.valid_placement?(player.cruiser, cruiser_coords)
@@ -62,10 +69,10 @@ Enter the squares for the Cruiser (3 spaces):"
         computer_place_cruiser
       elsif player.board.valid_placement?(player.submarine, submarine_coords) == false
         p "Try again"
-        place_submarine
+        explanation
       else
         p "Error oops"
-        place_submarine
+        explanation
       end
   end
 
@@ -95,7 +102,6 @@ Enter the squares for the Cruiser (3 spaces):"
       puts "next turn"
       player_fire
     end
-    puts "test win logic"
     win_lose_statement
   end
 
@@ -153,12 +159,22 @@ Enter the squares for the Cruiser (3 spaces):"
 
     def win_lose_statement
       if !player.has_lost?
+
         p "You won!"
+        main_menu
       elsif !computer.has_lost?
-        p "better luck next time"
+        p "Better luck next time"
+        main_menu
       else
         p "the game is broken :("
       end
+      exit
     end
+
+private
+
+  def user_input
+    gets.chomp.upcase
+  end
 
 end

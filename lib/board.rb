@@ -30,8 +30,8 @@ attr_reader :cells
   end
 
   def split_coordinates(coordinates)
-    coordinates.map do |coordinate|
-      coordinate.split("")
+      coordinates.map do |coordinate|
+        coordinate.split("")
     end
   end
 
@@ -75,7 +75,8 @@ attr_reader :cells
     elsif coordinates.length == 3
       (rows.join == ("123")) || (rows.join == ("234"))
     else
-      p "oops"
+      p "oops row"
+      sequential_row_coords?(coordinates)
     end
   end
 
@@ -89,7 +90,8 @@ attr_reader :cells
     elsif coordinates.length == 3
       (columns.join == ("ABC")) || (columns.join == ("BCD"))
     else
-      p "oops"
+      p "oops column"
+      sequential_column_coords?(coordinates)
     end
   end
 
