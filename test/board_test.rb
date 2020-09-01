@@ -130,4 +130,16 @@ class BoardTest < Minitest::Test
     actual_2 = board.render(true)
     assert_equal expected_2, actual_2
   end
+
+  def test_ships_cannot_overlap
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    submarine = Ship.new("Submarine", 2)
+
+    assert_equal true, board.valid_placement?(submarine, ["A1", "A2"])
+
+    board.place(cruiser, ["A1", "A2", "A3"])
+
+    assert_equal false, board.valid_placement?(submarine, ["A1", "A2"])
+  end
 end
