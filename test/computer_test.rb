@@ -17,10 +17,6 @@ class ComputerTest < Minitest::Test
 
     expected_1 = "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n"
     assert_equal expected_1, computer.board.render
-
-    # "No visible difference in the Ship#inspect output."
-    # assert_equal  cruiser, computer.cruiser
-    # assert_equal  submarine, computer.submarine
   end
 
   def test_it_can_lose
@@ -28,10 +24,8 @@ class ComputerTest < Minitest::Test
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
     computer = Computer.new
-
     expected_1 = false
-    actual_1 = computer.computer_has_lost?
-
+    actual_1 = computer.has_lost?
     assert_equal expected_1, actual_1
 
     computer.cruiser.hit
@@ -41,8 +35,7 @@ class ComputerTest < Minitest::Test
     computer.submarine.hit
 
     expected_2 = true
-    actual_2 = computer.computer_has_lost?
-    
+    actual_2 = computer.has_lost?
     assert_equal expected_2, actual_2
   end
 end
