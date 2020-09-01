@@ -14,8 +14,8 @@ class TurnTest < MiniTest::Test
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
     ships = [cruiser, submarine]
-    player_1 = Player.new(board, ships)
-    computer_1 = Computer.new(board, ships)
+    player_1 = Player.new
+    computer_1 = Computer.new
     turn = Turn.new(player_1, computer_1)
 
     assert_instance_of Turn, turn

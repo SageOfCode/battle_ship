@@ -14,13 +14,8 @@ class PlayerTest < Minitest::Test
     player = Player.new
 
     assert_instance_of Player, player
-
     expected_1 = "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n"
     assert_equal expected_1, player.board.render
-
-    # Ask about "No visible difference in the Ship#inspect output."
-    # assert_equal  cruiser, player.cruiser
-    # assert_equal  submarine, player.submarine
   end
 
   def test_player_can_place_ships
@@ -32,15 +27,12 @@ class PlayerTest < Minitest::Test
     player.board.place(cruiser, ["A1", "A2", "A3"])
     expected_placed = "  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n"
     actual_placed = player.board.render(true)
-
     assert_equal expected_placed, actual_placed
 
     player.board.place(submarine, ["B1", "B2"])
     expected_placed_2 = "  1 2 3 4 \nA S S S . \nB S S . . \nC . . . . \nD . . . . \n"
     actual_placed_2 = player.board.render(true)
-
     assert_equal expected_placed_2, actual_placed_2
-
   end
 
   def test_it_can_lose
@@ -48,10 +40,8 @@ class PlayerTest < Minitest::Test
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
     player = Player.new
-
     expected_1 = false
-    actual_1 = player.player_has_lost?
-
+    actual_1 = player.has_lost?
     assert_equal expected_1, actual_1
 
     player.cruiser.hit
@@ -61,8 +51,7 @@ class PlayerTest < Minitest::Test
     player.submarine.hit
 
     expected_2 = true
-    actual_2 = player.player_has_lost?
-
+    actual_2 = player.has_lost?
     assert_equal expected_2, actual_2
   end
 
