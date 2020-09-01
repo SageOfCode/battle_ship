@@ -9,14 +9,18 @@ class Turn
   def main_menu
     @player = Player.new
     @computer = Computer.new
-      puts "  💫 Welcome to SpaceWars 💫"
-      puts "Enter p to start the battle. Enter q to quit."
+    puts "             💫 Welcome to SpaceWars 💫
+      The year is 3575. Alien forces have delared war on humanity! 👾
+      You're the Captain of the Earth Alliance. 🌎
+      It is up to you to defend humanity against the invasion. 🚀
+
+      Enter p to start the battle. Enter q to quit."
 
       user_input = gets.chomp.upcase
       if user_input == "P"
         explanation
       elsif user_input == "Q"
-        p "Oh no, we're doomed!"
+        p "Oh no, we're doomed! 😱"
       else
         p "Oops, something went wrong. Try again"
         main_menu
@@ -82,6 +86,10 @@ class Turn
         !computer.board.cells[player_fire_coords].fired_upon? &&
         computer.board.cells[player_fire_coords].ship == nil
         computer.board.cells[player_fire_coords].fire_upon
+        puts "👽 'Your puny humans will never hit us!'"
+        puts "👾 'We weren't even close to #{player_fire_coords}.'"
+        puts computer.board.render
+        sleep(2)
           if !computer.has_lost?
             computer_fire
           else turn_logic
@@ -90,6 +98,9 @@ class Turn
         !computer.board.cells[player_fire_coords].fired_upon?
         computer.board.cells[player_fire_coords].fire_upon
         computer.board.cells[player_fire_coords].ship.hit
+        puts "👩‍🚀 'Great shot Captain, we hit 'em on #{player_fire_coords}!'"
+        puts computer.board.render
+        sleep(2)
           if !computer.has_lost?
             computer_fire
           else turn_logic
