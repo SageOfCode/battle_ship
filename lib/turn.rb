@@ -9,14 +9,14 @@ class Turn
   def main_menu
     @player = Player.new
     @computer = Computer.new
-      puts "    Welcome to BATTLESHIP
-      Enter p to play. Enter q to quit."
+      puts "  💫 Welcome to SpaceWars 💫"
+      puts "Enter p to start the battle. Enter q to quit."
 
       user_input = gets.chomp.upcase
       if user_input == "P"
         explanation
       elsif user_input == "Q"
-        p "See you next time."
+        p "Oh no, we're doomed!"
       else
         p "Oops, something went wrong. Try again"
         main_menu
@@ -26,11 +26,13 @@ class Turn
   def explanation
     computer.place_cruiser
     computer.place_submarine
-    puts "I have laid out my ships on the grid.
-You now need to lay out your two ships.
-The Cruiser is three units long and the Submarine is two units long.
-#{player.board.render(true)}
-Enter the squares for the Cruiser (3 spaces):"
+    puts "👩‍🚀 'Hello Captain, I'm Commander Miranda Keyes.
+    The aliens are wreaking havoc in the 5th Galactic Quadrant.
+    We've deciphered their cloaking technology and applied it to our ships.
+    The Space Cruiser spans 3 galactic units, and the Shuttle spans 2.
+    Deploy your Starships strategically.'"
+    puts "#{player.board.render(true)}"
+    puts "Enter the coordinates for the Space Cruiser (3 spaces):"
 
     place_cruiser_logic
 
@@ -72,7 +74,7 @@ Enter the squares for the Cruiser (3 spaces):"
   end
 
     def player_fire
-      puts "=== Your Opponent's Board ==="
+      puts "👾=== Alien Fleet ===👾"
       puts computer.board.render
       puts "Pick a coordinate to attack:"
       player_fire_coords = gets.chomp.upcase
@@ -92,9 +94,12 @@ Enter the squares for the Cruiser (3 spaces):"
             computer_fire
           else turn_logic
           end
-      else
-        p "Invalid shot, please choose a valid coordinate:"
-        player_fire
+      elsif !computer.board.cells.keys.include?(player_fire_coords)
+          p "Invalid shot, please choose a valid coordinate:"
+          player_fire
+        else
+          p "You've already shot here! Try again."
+          player_fire
       end
     end
 
@@ -104,8 +109,8 @@ Enter the squares for the Cruiser (3 spaces):"
         !player.board.cells[computer_fire_coords].fired_upon? &&
         player.board.cells[computer_fire_coords].ship == nil
         player.board.cells[computer_fire_coords].fire_upon
-        puts "Here's where the computer shot:"
-        puts "=== Your Board ==="
+        puts "Here's where the Alien's phasers hit:"
+        puts "🌟=== Earth Alliance ===🌟"
         puts player.board.render(true)
         sleep(2)
         turn_logic
@@ -113,8 +118,8 @@ Enter the squares for the Cruiser (3 spaces):"
         !player.board.cells[computer_fire_coords].fired_upon?
         player.board.cells[computer_fire_coords].fire_upon
         player.board.cells[computer_fire_coords].ship.hit
-        puts "Here's where the computer shot:"
-        puts "=== Your Board ==="
+        puts "Here's where the Alien's phasers hit:"
+        puts "🌟=== Earth Alliance ===🌟"
         puts player.board.render(true)
         sleep(2)
         turn_logic
@@ -125,14 +130,21 @@ Enter the squares for the Cruiser (3 spaces):"
 
     def win_lose_statement
       if !player.has_lost?
-        p "You won!"
-        puts "=== Your Opponent's Board ==="
+        puts "👩‍🚀 'We've won the battle! Great work Captain.'"
+        puts "👾=== Alien Fleet ===👾"
         puts computer.board.render
+        sleep(1)
+        puts "👩‍🚀 'Let's prepare for the next battle."
+        sleep(1)
         main_menu
       elsif !computer.has_lost?
-        p "Better luck next time"
-        puts "=== Your Board ==="
+        puts "👽 'Puny humans have been defeated.'"
+        puts "👽 'Time to take over Earth.'"
+        puts "🌟=== Earth Alliance ===🌟"
         puts player.board.render(true)
+        sleep(1)
+        puts "👩‍🚀 'Captain we must prepare for the next invasion.'"
+        sleep(1)
         main_menu
       else
         p "the game is broken :("

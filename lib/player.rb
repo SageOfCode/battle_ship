@@ -17,7 +17,7 @@ class Player
       puts "place cruiser error"
     elsif board.valid_placement?(cruiser, cruiser_coords)
       board.place(cruiser, cruiser_coords)
-      puts "=== Your Placed Cruiser ==="
+      puts "🌟=== Your Placed Space Cruiser ===🌟"
       puts board.render(true)
     end
   end
@@ -29,7 +29,7 @@ class Player
         place_submarine
       elsif board.valid_placement?(submarine, submarine_coords)
         board.place(submarine, submarine_coords)
-        puts "=== Your Placed Ships ==="
+        puts "🌟=== Your Placed Starships ===🌟"
         puts board.render(true)
         sleep(2)
       else
