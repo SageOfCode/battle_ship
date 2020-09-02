@@ -38,4 +38,18 @@ class ComputerTest < Minitest::Test
     actual_2 = computer.has_lost?
     assert_equal expected_2, actual_2
   end
+
+  def test_it_can_place_ships
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    submarine = Ship.new("Submarine", 2)
+    computer = Computer.new
+    expected_1 = "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n"
+    assert_equal expected_1, computer.board.render
+
+    computer.place_cruiser
+    computer.place_submarine
+    assert_equal 3, computer.place_cruiser.count
+    assert_equal 2, computer.place_submarine.count
+  end
 end
